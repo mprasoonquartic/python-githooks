@@ -11,6 +11,15 @@ VERSION = "1.0.6"
 README = (HERE / "README.md").read_text()
 
 
+class PostCommandInstall(install):
+    """Command to setup python-githooks inside the folder's git locally"""
+    description = 'setup python githooks for the given git repo'
+
+    def run(self):
+        install.run(self)
+        os.system("python -m python_githooks")
+
+
 class VerifyVersionCommand(install):
     """Command to verify that the git tag matches the library version"""
     description = 'verify that the git tag matches the library version'
@@ -49,5 +58,6 @@ setup(
     },
     cmdclass={
         'verify': VerifyVersionCommand,
+        'install': PostCommandInstall
     }
 )
